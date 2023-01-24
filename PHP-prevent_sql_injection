@@ -1,0 +1,18 @@
+# This is an example of a PHP function that can help prevent SQL injection. The function takes two parameters: $conn, which is the database connection, and $user_input, which is the input provided by the user.
+# 
+# The function uses prepared statements and the bind_param() method to bind the user input to the query, this way the input is treated as a string and not as a part of the query. The execute() method is used to execute the query and the get_result() method is used to retrieve the result set.
+# 
+# It's important to note that you should never use user input directly in your queries, always use prepared statements or at least the mysqli_real_escape_string() function to escape the user input.
+# 
+# Also make sure that your database user has the minimum permissions needed, and that you have a good error handling mechanism in place.
+#
+#
+function prevent_sql_injection($conn, $user_input) {
+    // Use prepared statements
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $user_input);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    // do something with the result set
+    return $result;
+}
