@@ -1,0 +1,13 @@
+# This is an example of a PHP function that can help prevent XXE (XML External Entity) attacks. The function takes a single parameter $xml_string, which is the XML string that needs to be parsed.
+# 
+# The function uses the DOMDocument class to create a new instance of an XML document, and the loadXML() method to load the XML string. The LIBXML_NOENT and LIBXML_DTDLOAD options are used to disable external entity resolution and DTD loading, which can help prevent XXE attacks.
+# 
+# It's important to note that you should never parse untrusted XML data, especially if it contains external entities, so this function should be used only for trusted input.
+# 
+# Also, you can use the XMLReader class instead of DOMDocument, to parse the XML data, this way you can avoid using the loadXML() method and its options.
+# 
+function prevent_xxe($xml_string) {
+    $xml = new DOMDocument();
+    $xml->loadXML($xml_string, LIBXML_NOENT | LIBXML_DTDLOAD);
+    return $xml;
+}
